@@ -1,4 +1,4 @@
-var result = document.querySelector('#password');
+var resultEl = document.querySelector('#password');
 var generate = document.querySelector('#generate');
 var copyClip = document.querySelector('#copyClip');
 var lengthEl = document.querySelector('#passl');
@@ -11,11 +11,11 @@ var symbolsEl = document.querySelector('#symbol')
 var randomChoice = {
     lower: getRandomLower,
     upper: getRandomUpper,
-    numbers: getRandomNumber,
-    symbols: getRandomSymbol
+    number: getRandomNumber,
+    symbol: getRandomSymbol
 };
 
-result.innerText = generate.addEventListener('click', function motion() {
+generate.addEventListener('click', function motion() {
     
     var  length = +lengthEl.value;
     var  hasLower = lowercaseEl.checked;
@@ -23,9 +23,54 @@ result.innerText = generate.addEventListener('click', function motion() {
     var  hasNumber = numbersEl.checked;
     var  hasSymbol = symbolsEl.checked;
     
-    console.log(hasLower, hasUpper, hasNumber, hasSymbol, length);     
+    resultEl.innerText = generatePassword(hasLower, hasUpper, hasNumber, hasSymbol, length);     
 });
 
+copyClip.addEventListener('click', function copyUp() {
+    var textArea = document.createElement('textarea');
+    var plassword = resultEl.innerText;
+
+    if(!plassword) {
+        return;
+    }
+
+    textArea.value = plassword;
+    document.body.appendChild(textA4rea);
+    textArea.select();
+    document.execCommand('copy');
+    textArea.remove();
+    alert('Password copied to clipboard!');
+
+})
+
+function generatePassword(lower, upper, number, symbol, length) {
+
+    var generatedResult = '';
+
+    var typesCount = lower + upper + number + symbol; 
+
+    var typesArr = [{upper}, {lower}, {number}, {symbol}].filter(
+        item => Object.values(item) [0]
+    );
+
+
+    if(typesCount === 0) {
+        return '';
+    }
+
+    for(i = 0; i < length; i += typesCount) {
+        typesArr.forEach(type => {
+            var funcName = Object.keys(type)[0];
+
+            generatedResult += randomChoice[funcName]();
+        })
+
+    var finalPassword = generatedResult.slice(0, length);
+
+    return finalPassword;
+   
+    }
+}
 
 
 function getRandomLower() {
@@ -54,13 +99,3 @@ function getRandomSymbol() {
 
 }
 
-
-
-
-
-
-
-console.log(getRandomLower());
-console.log(getRandomNumber());
-console.log(getRandomUpper());
-console.log(getRandomSymbol());
