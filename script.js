@@ -1,9 +1,11 @@
 var result = document.querySelector('#password');
-
-var generate = document.querySelector('#generate')
-
-var copyClip = document.querySelector('#copyClip')
-
+var generate = document.querySelector('#generate');
+var copyClip = document.querySelector('#copyClip');
+var lengthEl = document.querySelector('#passl');
+var lowercaseEl = document.querySelector('#lowercase');
+var uppercaseEl = document.querySelector('#uppercase');
+var numbersEl = document.querySelector('#number');
+var symbolsEl = document.querySelector('#symbol')
 
 
 var randomChoice = {
@@ -13,7 +15,18 @@ var randomChoice = {
     symbols: getRandomSymbol
 };
 
-generate.addEventListener('click', )
+result.innerText = generate.addEventListener('click', function motion() {
+    
+    var  length = +lengthEl.value;
+    var  hasLower = lowercaseEl.checked;
+    var  hasUpper = uppercaseEl.checked;
+    var  hasNumber = numbersEl.checked;
+    var  hasSymbol = symbolsEl.checked;
+    
+    console.log(hasLower, hasUpper, hasNumber, hasSymbol, length);     
+});
+
+
 
 function getRandomLower() {
     
