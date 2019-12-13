@@ -23,7 +23,20 @@ generate.addEventListener('click', function motion() {
     var hasNumber = numbersEl.checked;
     var hasSymbol = symbolsEl.checked;
 
+    if (length < 8) {
+
+        alert("Your password must be between 8 and 128 characters")
+    }else if(length > 128) {
+        
+        alert("Your password must be between 8 and 128 characters")
+        
+    }
+    
+    else {
+
     resultEl.innerText = generatePassword(hasLower, hasUpper, hasNumber, hasSymbol, length);
+    }
+    
 });
 
 copyClip.addEventListener('click', function copyUp() {
