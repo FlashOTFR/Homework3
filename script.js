@@ -16,26 +16,26 @@ var randomChoice = {
 };
 
 generate.addEventListener('click', function motion() {
-    
-    var  length = +lengthEl.value;
-    var  hasLower = lowercaseEl.checked;
-    var  hasUpper = uppercaseEl.checked;
-    var  hasNumber = numbersEl.checked;
-    var  hasSymbol = symbolsEl.checked;
-    
-    resultEl.innerText = generatePassword(hasLower, hasUpper, hasNumber, hasSymbol, length);     
+
+    var length = +lengthEl.value;
+    var hasLower = lowercaseEl.checked;
+    var hasUpper = uppercaseEl.checked;
+    var hasNumber = numbersEl.checked;
+    var hasSymbol = symbolsEl.checked;
+
+    resultEl.innerText = generatePassword(hasLower, hasUpper, hasNumber, hasSymbol, length);
 });
 
 copyClip.addEventListener('click', function copyUp() {
     var textArea = document.createElement('textarea');
     var plassword = resultEl.innerText;
 
-    if(!plassword) {
+    if (!plassword) {
         return;
     }
 
     textArea.value = plassword;
-    document.body.appendChild(textA4rea);
+    document.body.appendChild(textArea);
     textArea.select();
     document.execCommand('copy');
     textArea.remove();
@@ -47,43 +47,44 @@ function generatePassword(lower, upper, number, symbol, length) {
 
     var generatedResult = '';
 
-    var typesCount = lower + upper + number + symbol; 
+    var typesCount = lower + upper + number + symbol;
 
-    var typesArr = [{upper}, {lower}, {number}, {symbol}].filter(
-        item => Object.values(item) [0]
+    var typesArr = [{ upper }, { lower }, { number }, { symbol }].filter(
+        item => Object.values(item)[0]
     );
 
 
-    if(typesCount === 0) {
+    if (typesCount === 0) {
         return '';
     }
 
-    for(i = 0; i < length; i += typesCount) {
+    for (var i = 0; i < length; i += typesCount) {
         typesArr.forEach(type => {
             var funcName = Object.keys(type)[0];
 
             generatedResult += randomChoice[funcName]();
         })
 
-    var finalPassword = generatedResult.slice(0, length);
+        var finalPassword = generatedResult.slice(0, length);
 
-    return finalPassword;
-   
+        
+        console.log(finalPassword);
     }
+    return finalPassword;
 }
 
 
 function getRandomLower() {
-    
+
     var lowercase = "abcdefghijklmnopqrstuvwxyz";
     return lowercase[Math.floor(Math.random() * lowercase.length)];
 }
 
 function getRandomUpper() {
-    
+
     var uppercase = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
     return uppercase[Math.floor(Math.random() * uppercase.length)];
-    
+
 }
 
 function getRandomNumber() {
